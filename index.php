@@ -29,16 +29,15 @@ function route($content, $path) {
     // <https://www.jsonfeed.org>
     if ('feed.json' === $n && 0 === \strpos($path . '/', $x_user_route . '/')) {
         $key = $path !== $x_user_route ? \basename($path) : null;
-        // NOTE: Consider to add description and title data in the future!
         $lot = [
-            'description' => null,
+            'description' => $state->description ?: null,
             'feed_url' => \Hook::fire('link', [$url->current([
                 'part' => $part,
                 'sort' => $sort
             ], false)]),
             'home_page_url' => \Hook::fire('link', [(string) $url]),
             'items' => [],
-            'title' => ($exist = \y(\g($folder, 'page'))) ? null : \i('Error') . ' | ' . $state->title,
+            'title' => (($exist = \y(\g($folder, 'page'))) ? "" : \i('Error') . ' | ') . $state->title,
             'version' => 'https://jsonfeed.org/version/1.1'
         ];
         if (\is_file(\PATH . \D . 'favicon.ico')) {
@@ -177,7 +176,6 @@ function route($content, $path) {
     }
     // <https://validator.w3.org/feed/docs/rss2.html>
     if ('feed.xml' === $n && 0 === \strpos($path . '/', $x_user_route . '/')) {
-        // NOTE: Consider to add description and title data in the future!
         $key = $path !== $x_user_route ? \basename($path) : null;
         $lot = [
             0 => 'rss',
@@ -190,7 +188,7 @@ function route($content, $path) {
                         ], false)]),
                         'rel' => 'self'
                     ]],
-                    ['description', '<![CDATA[]]>', []],
+                    ['description', '<![CDATA[' . $state->description . ']]>', []],
                     ['generator', '<![CDATA[Mecha ' . \VERSION . ']]>', []],
                     ['language', $state->language ?? 'en', []],
                     ['lastBuildDate', \date('r', $_SERVER['REQUEST_TIME']), []],
@@ -198,7 +196,7 @@ function route($content, $path) {
                         'part' => $part,
                         'sort' => $sort
                     ], false)])), []],
-                    ['title', '<![CDATA[]]>', []]
+                    ['title', '<![CDATA[' . (($exist = \y(\g($folder, 'page'))) ? "" : \i('Error') . ' | ') . $state->title . ']]>', []]
                 ], []]
             ],
             2 => [
@@ -206,7 +204,6 @@ function route($content, $path) {
                 'xmlns:atom' => 'http://www.w3.org/2005/Atom'
             ]
         ];
-        $exist = \y(\g($folder, 'page'));
         if (null !== $key) {
             $page = new \User($folder . \D . $key . '.page');
             if ($exist = $page->exist) {

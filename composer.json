@@ -1,0 +1,9 @@
+{
+  "description": "RSS and JSON feed feature for user data.",
+  "license": "GPL-3.0-or-later",
+  "name": "mecha-cms/x.feed.user",
+  "require": {
+    "mecha-cms/x.page": "^3.0.0",
+    "mecha-cms/x.user": "^2.0.0"
+  }
+}
