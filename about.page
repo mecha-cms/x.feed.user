@@ -5,8 +5,17 @@ icon: 'M5,3H19A2,2 0 0,1 21,5V19A2,2 0 0,1 19,21H5A2,2 0 0,1 3,19V5A2,2 0 0,1 5,
 color: '#ea6322'
 author: Taufik Nurrohman
 type: Markdown
-version: 0.0.1
+version: 1.0.0
 ...
+
+This extension exists thanks to the completion of [5 USD bounty](https://github.com/mecha-cms/bounty/issues/5), which
+has been financed by the following people:
+
+Name | Donation
+---- | --------
+[yuliakbard](https://github.com/yuliakbard) | 6.44 USD [^1]
+
+[^1]: About 100,000 IDR since this extension was created.
 
 ### Usage
 
